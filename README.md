@@ -28,9 +28,59 @@ make step_03
 make step_04
 ```
 
+### Configure Rancher
+
+Go to https://rancher-demo.plgrnd.be/login and set up admin password and server url.
+
+### Add 3 downstream clusters to Rancher
+
+"Add Cluster" -> "Register an existing Kubernetes cluster" => "Other Cluster"
+
+Add "group" label with values "amd" and "arm".
+
+To register every cluster run
+
+```
+./run_on.sh [3-5] kubectl apply ....
+```
+
+Wait until all clusters are read.
+
+### Configure Fleet
+
+Go to "Cluster Explorer" of local cluster -> "Continuous Delivery"
+
+Add arm and amd Cluster Groups matching the cluster labels from above in "fleet-default".
+
+## Use fleet
+
+Get Download Kubeconfig from all clusters.
+
+Commands to watch clusters
+
+```
+watch kubectl --kubeconfig kubeconfig_cluster_one --insecure-skip-tls-verify get nodes,pods -A
+watch kubectl --kubeconfig kubeconfig_cluster_two --insecure-skip-tls-verify get nodes,pods -A
+watch kubectl --kubeconfig kubeconfig_cluster_three --insecure-skip-tls-verify get nodes,pods -A
+```
+
+### Upgrade all clusters
+
+Add Git repo to deploy system-upgrade-controller
+Repo: https://github.com/rancher/system-upgrade-controller
+Path: manifests
+All clusters.
+
+Add Git Repo to deploy upgrade Plan
+Repo: https://github.com/bashofmann/rancher-k3s-fleet-examples
+Path: fleet-examples
+All clusters
+
+###
+
 ## Cleanup
 
-To remove everyting
+To remove everything
 
 ```
 make destroy

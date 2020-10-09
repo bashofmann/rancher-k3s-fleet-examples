@@ -45,3 +45,6 @@ step_04:
 	source get_env.sh && ssh -o StrictHostKeyChecking=no ubuntu@$${IP3} "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.18 K3S_KUBECONFIG_MODE=644 sh -"
 	source get_env.sh && ssh -o StrictHostKeyChecking=no ubuntu@$${IP4} "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.18 K3S_KUBECONFIG_MODE=644 sh -"
 	source get_env.sh && ssh -o StrictHostKeyChecking=no ubuntu@$${IP5} "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.18 K3S_KUBECONFIG_MODE=644 sh -"
+	touch kubeconfig_cluster_one
+	touch kubeconfig_cluster_two
+	touch kubeconfig_cluster_three
