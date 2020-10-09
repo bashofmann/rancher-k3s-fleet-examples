@@ -1,0 +1,5 @@
+targetCustomizations:
+  - name: arm
+    overlays:
+      - green-color
+    clusterGroup: arm
