@@ -1,5 +1,8 @@
-[
-  {"op": "replace",
-   "path": "/spec/template/spec/containers/0/env/0/value",
-   "value": "green"}
-]
+spec:
+  template:
+    spec:
+      containers:
+        - name: hello-world
+          env:
+            - name: COW_COLOR
+              value: green
