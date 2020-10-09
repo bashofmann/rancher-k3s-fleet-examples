@@ -4,6 +4,7 @@ metadata:
   name: hello-world
   namespace: default
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: hello-world
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: monachus/rancher-demo:v.1.4.1
+          image: bashofmann/rancher-demo:1.0.0
           ports:
           - containerPort: 8080
             name: web
