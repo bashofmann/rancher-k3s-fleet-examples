@@ -76,7 +76,15 @@ Repo: https://github.com/bashofmann/rancher-k3s-fleet-examples
 Path: fleet-examples
 All clusters
 
-###
+### Deploy applications
+
+* Deploy upgrade plan
+* Add hello-world example
+* Open webapp on nodeports
+* Update hello-world example with overlays
+* Show that on arm cluster the color changed
+* Deploy netdata
+* Change gitrepo cluster selector
 
 ## Cleanup
 
