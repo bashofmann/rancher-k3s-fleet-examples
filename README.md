@@ -73,12 +73,18 @@ All clusters.
 
 Add Git Repo to deploy upgrade Plan
 Repo: https://github.com/bashofmann/rancher-k3s-fleet-examples
+Path: fleet-upgrades
+Only amd clusters
+
+* Deploy upgrade plan
+
+Add Git Repo to deploy rest
+Repo: https://github.com/bashofmann/rancher-k3s-fleet-examples
 Path: fleet-examples
 All clusters
 
 ### Deploy applications
 
-* Deploy upgrade plan
 * Add hello-world example
 * Open webapp on nodeports
 * Update hello-world example with overlays
