@@ -7,4 +7,4 @@ helm:
     service:
       type: NodePort
     ingress:
-      hosts: false
+      enabled: false
