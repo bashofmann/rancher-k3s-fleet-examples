@@ -21,6 +21,19 @@ step_02:
 	source get_env.sh && scp -o StrictHostKeyChecking=no ubuntu@$${IP0}:/etc/rancher/k3s/k3s.yaml kubeconfig
 	source get_env.sh && sed -i "s/127.0.0.1/$${IP0}/g" kubeconfig
 
+print_step_02:
+	echo "Creating k3s cluster on ubuntu vms 0,1,2"
+	source get_env.sh && echo "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.19 INSTALL_K3S_EXEC='server' K3S_TOKEN=$(K3S_TOKEN) K3S_KUBECONFIG_MODE=644 K3S_CLUSTER_INIT=1 sh -"
+	source get_env.sh && echo "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.19 INSTALL_K3S_EXEC='server' K3S_TOKEN=$(K3S_TOKEN) K3S_URL=https://$${IP0}:6443 sh - "
+	source get_env.sh && echo "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.19 INSTALL_K3S_EXEC='server' K3S_TOKEN=$(K3S_TOKEN) K3S_URL=https://$${IP0}:6443 sh - "
+
+kubeconfigs:
+	source get_env.sh && scp -o StrictHostKeyChecking=no ubuntu@$${IP0}:/etc/rancher/k3s/k3s.yaml kubeconfig
+	source get_env.sh && sed -i "s/127.0.0.1/$${IP0}/g" kubeconfig
+	touch kubeconfig_cluster_one
+	touch kubeconfig_cluster_two
+	touch kubeconfig_cluster_three
+
 step_03:
 	echo "Installing cert-manager and Rancher"
 	helm repo update
@@ -32,8 +45,6 @@ step_03:
 	kubectl rollout status deployment -n cert-manager cert-manager-webhook
 	helm upgrade --install rancher rancher-latest/rancher \
 	  --namespace cattle-system \
-	  --set ingress.tls.source=letsEncrypt \
-	  --set letsEncrypt.email=mail@bastianhofmann.de \
 	  --version 2.5.1 \
 	  --set hostname=rancher-demo.plgrnd.be --create-namespace
 	kubectl rollout status deployment -n cattle-system rancher
@@ -41,6 +52,8 @@ step_03:
 
 step_04:
 	source get_env.sh
+	# curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.18 K3S_KUBECONFIG_MODE=644 sh -
+	# watch kubectl get nodes,pods,svc -A
 	echo "Creating downstream k3s clusters"
 	source get_env.sh && ssh -o StrictHostKeyChecking=no ubuntu@$${IP3} "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.18 K3S_KUBECONFIG_MODE=644 sh -"
 	source get_env.sh && ssh -o StrictHostKeyChecking=no ubuntu@$${IP4} "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=v1.18 K3S_KUBECONFIG_MODE=644 sh -"
