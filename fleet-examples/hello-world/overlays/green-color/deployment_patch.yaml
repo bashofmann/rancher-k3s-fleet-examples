@@ -5,4 +5,4 @@ spec:
         - name: hello-world
           env:
             - name: COW_COLOR
-              value: green
+              value: yellow
