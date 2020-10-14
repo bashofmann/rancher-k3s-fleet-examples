@@ -8,3 +8,11 @@ helm:
       type: NodePort
     ingress:
       enabled: false
+
+targetCustomizations:
+  - name: cluster-one
+    helm:
+      values:
+        ingress:
+          enabled: true
+    clusterGroup: amd
