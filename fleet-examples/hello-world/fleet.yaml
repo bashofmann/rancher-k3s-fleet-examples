@@ -1,6 +1,0 @@
-targetCustomizations:
-  - name: amd
-    yaml:
-      overlays:
-        - green-color
-    clusterGroup: amd
