@@ -1,6 +1,0 @@
-targetCustomizations:
-  - name: arm
-    yaml:
-      overlays:
-        - green-color
-    clusterGroup: arm
