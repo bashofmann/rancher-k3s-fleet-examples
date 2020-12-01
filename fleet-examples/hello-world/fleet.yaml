@@ -3,4 +3,4 @@ targetCustomizations:
     yaml:
       overlays:
         - green-color
-    clusterGroup: two
+    clusterGroup: arm
