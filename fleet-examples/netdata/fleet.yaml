@@ -1,0 +1,10 @@
+defaultNamespace: netdata
+
+helm:
+  chart: github.com/netdata/helmchart/charts/netdata
+  releaseName: netdata
+  values:
+    service:
+      type: NodePort
+    ingress:
+      enabled: false
