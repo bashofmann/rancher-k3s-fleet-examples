@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: loki-example-app
+  name: loki-example-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: loki-example-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: loki-example-app
+    spec:
+      containers:
+      - name: loki-example-app
+        image: chrisurwin/rancher-demo
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-example-app
+  labels:
+    app.kubernetes.io/name: loki-example-app
+spec:
+  selector:
+    app.kubernetes.io/name: loki-example-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: loki-example-app
+spec:
+    rules:
+    - host: xip.io
+      http:
+        paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            serviceName: loki-example-app
+            servicePort: 8080

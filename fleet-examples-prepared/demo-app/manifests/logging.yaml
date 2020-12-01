@@ -1,0 +1,31 @@
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: Output
+metadata:
+ name: loki-output
+spec:
+ loki:
+   url: http://loki.loki.svc:3100
+   configure_kubernetes_labels: true
+   buffer:
+     timekey: 5s
+     timekey_wait: 2s
+     timekey_use_utc: true
+---
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: Flow
+metadata:
+    name: loki-flow
+spec:
+    filters:
+    - tag_normaliser: {}
+    - parser:
+        remove_key_name_field: true
+        reserve_data: true
+        parse:
+            type: none
+    match:
+    - select:
+        labels:
+            app.kubernetes.io/name: loki-example-app
+    localOutputRefs:
+      - loki-output    
