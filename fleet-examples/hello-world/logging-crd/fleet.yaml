@@ -1,6 +1,0 @@
-
-defaultNamespace: rancher-logging
-helm:
-  releaseName: rancher-logging-crd
-  repo: https://charts.rancher.io
-  chart: rancher-logging-crd
