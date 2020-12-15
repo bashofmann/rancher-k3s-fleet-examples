@@ -8,3 +8,11 @@ helm:
       type: NodePort
     ingress:
       enabled: false
+
+targetCustomization:
+  - name: arm
+    clusterGroup: arm
+    helm:
+      values:
+        service:
+          type: ClusterIP
