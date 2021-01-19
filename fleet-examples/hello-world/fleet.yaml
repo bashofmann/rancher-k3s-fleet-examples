@@ -1,6 +1,0 @@
-targetCustomizations:
-  - name: berlin
-    yaml:
-      overlays:
-        - green-color
-    clusterGroup: berlin
