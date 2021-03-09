@@ -1,0 +1,18 @@
+defaultNamespace: netdata
+
+helm:
+  chart: github.com/netdata/helmchart/charts/netdata
+  releaseName: netdata
+  values:
+    service:
+      type: NodePort
+    ingress:
+      enabled: false
+
+targetCustomization:
+  - name: arm
+    clusterGroup: arm
+    helm:
+      values:
+        service:
+          type: ClusterIP
