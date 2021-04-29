@@ -24,7 +24,7 @@ metadata:
   namespace: kube-system
 spec:
   chart: kube-state-metrics
-  repo: https://charts.bitnami.com/bitnami
+  repo: https://prometheus-community.github.io/helm-charts
   targetNamespace: monitoring
   valuesContent: |-
     service:
