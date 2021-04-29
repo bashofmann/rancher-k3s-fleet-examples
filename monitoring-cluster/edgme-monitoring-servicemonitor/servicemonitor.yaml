@@ -12,11 +12,19 @@ spec:
       scrapeTimeout: 55s
       path: "/metrics"
       port: node-exporter
+      metricRelabelings:
+        - sourceLabels:
+            - service
+          targetLabel: cluster
     - interval: 1m
       honorLabels: true
       scrapeTimeout: 55s
       path: "/metrics"
       port: kube-state-metrics
+      metricRelabelings:
+        - sourceLabels:
+            - service
+          targetLabel: cluster
   namespaceSelector:
     matchNames:
       - cattle-monitoring-system
