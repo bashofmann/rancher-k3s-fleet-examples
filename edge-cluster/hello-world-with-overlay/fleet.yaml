@@ -1,0 +1,6 @@
+targetCustomizations:
+  - name: west
+    yaml:
+      overlays:
+        - green-color
+    clusterGroup: west
