@@ -3,4 +3,6 @@ targetCustomizations:
     yaml:
       overlays:
         - green-color
-    clusterGroup: west
+    clusterSelector:
+      matchLabels:
+        location: west
