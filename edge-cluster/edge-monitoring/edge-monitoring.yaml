@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: node-exporter
+  namespace: kube-system
+spec:
+  chart: prometheus-node-exporter
+  repo: https://prometheus-community.github.io/helm-charts
+  targetNamespace: monitoring
+  valuesContent: |-
+    service:
+      type: NodePort
+      nodePort: 30091
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: kube-state-metrics
+  namespace: kube-system
+spec:
+  chart: kube-state-metrics
+  repo: https://prometheus-community.github.io/helm-charts
+  targetNamespace: monitoring
+  valuesContent: |-
+    service:
+      type: NodePort
+      nodePort: 30080
