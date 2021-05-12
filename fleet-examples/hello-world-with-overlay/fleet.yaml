@@ -1,0 +1,8 @@
+targetCustomizations:
+  - name: west
+    yaml:
+      overlays:
+        - green-color
+    clusterSelector:
+      matchLabels:
+        location: west
