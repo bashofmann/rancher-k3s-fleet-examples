@@ -1,5 +1,7 @@
 defaultNamespace: rancher-demo
 
 helm:
-  chart: github.com/bashofmann/rancher-demo/charts/rancher-demo?ref=1.0.6
+  chart: rancher-demo
+  repo: https://bashofmann.github.io/demo-charts
   releaseName: rancher-demo
+  version: 2.0.0
