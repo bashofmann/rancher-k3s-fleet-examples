@@ -1,0 +1,189 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: edge-clusters
+  namespace: cattle-monitoring-system
+  labels:
+    cluster: edge-clusters
+spec:
+  endpoints:
+    - interval: 1m
+      honorLabels: true
+      scrapeTimeout: 55s
+      path: "/metrics"
+      port: node-exporter
+      metricRelabelings:
+        - sourceLabels:
+            - service
+          targetLabel: cluster
+    - interval: 1m
+      honorLabels: true
+      scrapeTimeout: 55s
+      path: "/metrics"
+      port: kube-state-metrics
+      metricRelabelings:
+        - sourceLabels:
+            - service
+          targetLabel: cluster
+  namespaceSelector:
+    matchNames:
+      - cattle-monitoring-system
+  selector:
+    matchLabels:
+      cluster: edge-clusters
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-one
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+spec:
+  type: ExternalName
+  externalName: 18.156.134.94
+  clusterIP: ""
+  ports:
+    - port: 9100
+      targetPort: 9100
+      name: node-exporter
+      protocol: TCP
+    - port: 30080
+      targetPort: 30080
+      name: kube-state-metrics
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: cluster-one
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+subsets:
+  - addresses:
+      - ip: 18.156.134.94
+    ports:
+      - port: 9100
+        name: node-exporter
+        protocol: TCP
+      - port: 30080
+        name: kube-state-metrics
+        protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-two
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+spec:
+  type: ExternalName
+  externalName: 34.241.125.82
+  clusterIP: ""
+  ports:
+    - port: 9100
+      targetPort: 9100
+      name: node-exporter
+      protocol: TCP
+    - port: 30080
+      targetPort: 30080
+      name: kube-state-metrics
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: cluster-two
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+subsets:
+  - addresses:
+      - ip: 34.241.125.82
+    ports:
+      - port: 9100
+        name: node-exporter
+        protocol: TCP
+      - port: 30080
+        name: kube-state-metrics
+        protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-three
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+spec:
+  type: ExternalName
+  externalName: 18.198.2.200
+  clusterIP: ""
+  ports:
+    - port: 9100
+      targetPort: 9100
+      name: node-exporter
+      protocol: TCP
+    - port: 30080
+      targetPort: 30080
+      name: kube-state-metrics
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: cluster-three
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+subsets:
+  - addresses:
+      - ip: 18.198.2.200
+    ports:
+      - port: 9100
+        name: node-exporter
+        protocol: TCP
+      - port: 30080
+        name: kube-state-metrics
+        protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-four
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+spec:
+  type: ExternalName
+  externalName: 3.250.58.172
+  clusterIP: ""
+  ports:
+    - port: 9100
+      targetPort: 9100
+      name: node-exporter
+      protocol: TCP
+    - port: 30080
+      targetPort: 30080
+      name: kube-state-metrics
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: cluster-four
+  labels:
+    cluster: edge-clusters
+  namespace: cattle-monitoring-system
+subsets:
+  - addresses:
+      - ip: 3.250.58.172
+    ports:
+      - port: 9100
+        name: node-exporter
+        protocol: TCP
+      - port: 30080
+        name: kube-state-metrics
+        protocol: TCP
