@@ -14,7 +14,15 @@ helm:
             - /
 diff:
   comparePatches:
-  - kind: Ingress
+  - apiVersion: extensions/v1beta1
+    kind: Ingress
     name: kubeview
     operations:
     - {"op":"remove", "path":"/spec/rules"}
+    - {"op":"remove", "path":"/rules"}
+  - apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    name: kubeview
+    operations:
+    - {"op":"remove", "path":"/spec/rules"}
+    - {"op":"remove", "path":"/rules"}
