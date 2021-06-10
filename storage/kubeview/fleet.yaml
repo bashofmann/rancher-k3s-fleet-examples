@@ -12,3 +12,10 @@ helm:
         - host: nip.io
           paths:
             - /
+diff:
+  comparePatches:
+  - apiVersion: extensions/v1beta1
+    kind: Ingress
+    name: kubeview
+    operations:
+    - {"op":"remove", "path":"/rules"}
