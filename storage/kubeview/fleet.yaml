@@ -20,9 +20,3 @@ diff:
     namespace: kubeview
     operations:
     - {"op":"remove", "path":"/spec/rules"}
-  - apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    name: kubeview
-    operations:
-    - {"op":"remove", "path":"/spec/rules"}
-    - {"op":"remove", "path":"/rules"}
