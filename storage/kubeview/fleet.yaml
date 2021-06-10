@@ -1,0 +1,10 @@
+defaultNamespace: kubeview
+
+helm:
+  chart: https://github.com/benc-uk/kubeview/raw/master/charts/kubeview-0.1.20.tgz
+  releaseName: kubeview
+  values:
+    ingress:
+      enabled: true
+      hosts:
+        - host: nip.io
