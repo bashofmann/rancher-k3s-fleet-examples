@@ -1,7 +1,9 @@
 defaultNamespace: kubeview
 
 helm:
-  chart: https://github.com/benc-uk/kubeview/raw/master/charts/kubeview-0.1.20.tgz
+  chart: kubeview
+  repo: https://benc-uk.github.io/kubeview/charts
+  version: 0.1.20
   releaseName: kubeview
   values:
     ingress:
