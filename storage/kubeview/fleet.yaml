@@ -8,3 +8,5 @@ helm:
       enabled: true
       hosts:
         - host: nip.io
+          paths:
+            - /
