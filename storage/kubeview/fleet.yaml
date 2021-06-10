@@ -18,4 +18,4 @@ diff:
     kind: Ingress
     name: kubeview
     operations:
-    - {"op":"remove", "path":"/rules"}
+    - {"op":"remove", "path":"/spec/rules"}
