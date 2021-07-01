@@ -1,0 +1,36 @@
+defaultNamespace: rancher-demo
+
+helm:
+  chart: rancher-demo
+  repo: https://bashofmann.github.io/demo-charts
+  releaseName: app-one
+  version: 2.5.0
+  values:
+    ingress:
+      enabled: true
+
+targetCustomizations:
+  - name: bhofmann-fleet-0
+    helm:
+      values:
+        ingress:
+          host: app-one.bhofmann-fleet-0.plgrnd.be
+    clusterSelector:
+      matchLabels:
+        management.cattle.io/cluster-display-name: bhofmann-fleet-0
+  - name: bhofmann-fleet-1
+    helm:
+      values:
+        ingress:
+          host: app-one.bhofmann-fleet-1.plgrnd.be
+    clusterSelector:
+      matchLabels:
+        management.cattle.io/cluster-display-name: bhofmann-fleet-1
+  - name: bhofmann-fleet-2
+    helm:
+      values:
+        ingress:
+          host: app-one.bhofmann-fleet-2.plgrnd.be
+    clusterSelector:
+      matchLabels:
+        management.cattle.io/cluster-display-name: bhofmann-fleet-2
