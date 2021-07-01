@@ -4,7 +4,7 @@ helm:
   chart: rancher-demo
   repo: https://bashofmann.github.io/demo-charts
   releaseName: app-two
-  version: 2.5.0
+  version: 2.5.1
   values:
     clusterName: global.fleet.clusterLabels.management.cattle.io/cluster-display-name
     ingress:
