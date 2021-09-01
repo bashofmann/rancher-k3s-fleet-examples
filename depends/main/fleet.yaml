@@ -1,2 +1,2 @@
 dependsOn:
-  - fleet-depends-sub
+  - name: fleet-depends-sub
