@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world
+  name: hello-world-sub
   namespace: default
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello-world
+      app: hello-world-sub
   template:
     metadata:
       labels:
-        app: hello-world
+        app: hello-world-sub
     spec:
       containers:
-        - name: hello-world
+        - name: hello-world-sub
           image: bashofmann/rancher-demo:1.0.0
           imagePullPolicy: Always
           ports:
