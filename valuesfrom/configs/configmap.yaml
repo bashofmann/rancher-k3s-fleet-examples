@@ -9,7 +9,7 @@ data:
     ingress:
       enabled: false
     service:
-      type: Nodeport
+      type: NodePort
     app:
       localization:
         title: CONFIGMAP
