@@ -6,6 +6,10 @@ metadata:
 data:
   values.yaml: |
     replicaCount: 2
+    ingress:
+      enabled: false
+    service:
+      type: Nodeport
     app:
       localization:
         title: CONFIGMAP
