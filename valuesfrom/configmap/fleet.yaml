@@ -1,0 +1,10 @@
+defaultNamespace: default
+helm:
+  releaseName: rancher-demo-configmap
+  repo: https://rancher.github.io/rodeo
+  chart: rancher-demo
+  valuesFrom:
+    - configMapKeyRef:
+        name: rancher-demo-configmap-values
+        namespace: default
+        key: values.yaml

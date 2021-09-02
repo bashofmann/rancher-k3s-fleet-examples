@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rancher-demo-configmap-values
+  namespace: default
+data:
+  values.yaml: |
+    replicaCount: 2
+    app:
+      localization:
+        title: CONFIGMAP
