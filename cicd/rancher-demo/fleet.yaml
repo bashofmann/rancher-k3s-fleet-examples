@@ -7,4 +7,4 @@ helm:
   version: 2.5.0
   values:
     app:
-      title: Test
+      title: Demo
