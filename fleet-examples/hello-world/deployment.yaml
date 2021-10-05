@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: hello-world
+          image: bashofmann/rancher-demo:1.0.0
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+            name: web
+            protocol: TCP
+          env:
+            - name: COW_COLOR
+              value: purple
+          readinessProbe:
+            httpGet:
+              port: web
+              path: /
