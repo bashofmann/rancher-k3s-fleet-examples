@@ -1,0 +1,11 @@
+defaultNamespace: metallb-system
+
+helm:
+  chart: ./metal-lb-config
+  releaseName: metal-lb-config
+  values:
+    # OPTION 1: the address pool is added as a label to the cluster
+    adressPool: global.fleet.clusterLabels.adress-pool
+
+    # OPTION 2: configure an address pool id as a label
+    adressPoolId: global.fleet.clusterLabels.adress-pool-id
