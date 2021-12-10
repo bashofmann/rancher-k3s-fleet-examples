@@ -1,0 +1,14 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredUniqueLabels
+metadata:
+  name: all-must-unique-pool-id
+spec:
+  match:
+    kinds:
+      - apiGroups: ["provisioning.cattle.io"]
+        kinds: ["Cluster"]
+  parameters:
+    message: "All clusters must have a unique, valid `pool-id` label"
+    labels:
+      - key: pool-id
+        allowedRegex: "^pool-[0-9]+$"

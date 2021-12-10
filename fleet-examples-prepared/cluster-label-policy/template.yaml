@@ -1,0 +1,70 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequireduniquelabels
+  annotations:
+    description: Requires all resources to contain a specified label with a value
+      matching a provided regular expression and are unique.
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredUniqueLabels
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          properties:
+            message:
+              type: string
+            labels:
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  allowedRegex:
+                    type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequireduniquelabels
+        get_message(parameters, _default) = msg {
+          not parameters.message
+          msg := _default
+        }
+        get_message(parameters, _default) = msg {
+          msg := parameters.message
+        }
+        identical(obj, review) {
+          obj.metadata.namespace == review.object.metadata.namespace
+          obj.metadata.name == review.object.metadata.name
+        }
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+          provided := {label | input.review.object.metadata.labels[label]}
+          required := {label | label := input.parameters.labels[_].key}
+          missing := required - provided
+          count(missing) > 0
+          def_msg := sprintf("you must provide labels: %v", [missing])
+          msg := get_message(input.parameters, def_msg)
+        }
+        violation[{"msg": msg, "details": {"not_matching_labels": value}}] {
+          value := input.review.object.metadata.labels[key]
+          expected := input.parameters.labels[_]
+          expected.key == key
+          # do not match if allowedRegex is not defined, or is an empty string
+          expected.allowedRegex != ""
+          not re_match(expected.allowedRegex, value)
+          def_msg := sprintf("Label <%v: %v> does not satisfy allowed regex: %v", [key, value, expected.allowedRegex])
+          msg := get_message(input.parameters, def_msg)
+        }
+        violation[{"msg": msg}] {
+          kind := input.review.kind.kind
+          group := input.review.kind.group
+          value := input.review.object.metadata.labels[key]
+          other := data.inventory.namespace[_][group][kind][name]
+          other.metadata.labels[key] == value
+          not identical(other, input.review)
+          msg := sprintf("%v label %x conflicts with an existing %v <%v>", [kind, key, kind, value])
+        }
