@@ -18,7 +18,7 @@ spec:
           image: nginx
           imagePullPolicy: Always
           ports:
-          - containerPort: 8080
+          - containerPort: 80
             name: web
             protocol: TCP
           env:
