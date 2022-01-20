@@ -4,7 +4,7 @@ helm:
   chart: rancher-demo
   repo: https://bashofmann.github.io/demo-charts
   releaseName: rancher-demo
-  version: 2.5.0
+  version: 2.5.1
   values:
     app:
       title: Demo
