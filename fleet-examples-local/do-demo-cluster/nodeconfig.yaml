@@ -1,0 +1,16 @@
+apiVersion: rke-machine-config.cattle.io/v1
+kind: DigitaloceanConfig
+metadata:
+  name: do-demo-cluster-nodes
+  namespace: fleet-default
+monitoring: false
+privateNetworking: false
+region: sfo3
+size: s-2vcpu-4gb
+sshKeyContents: null
+sshKeyFingerprint: null
+sshPort: "22"
+sshUser: root
+backups: false
+image: ubuntu-20-04-x64
+ipv6: false

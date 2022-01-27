@@ -1,0 +1,50 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: external-prometheus
+  namespace: cattle-monitoring-system
+spec:
+  endpoints:
+    - interval: 1m
+      honorLabels: true
+      scrapeTimeout: 55s
+      path: "/federate"
+      port: prometheus-nodeport
+  namespaceSelector:
+    matchNames:
+      - cattle-monitoring-system
+  selector:
+    matchLabels:
+      app: external-prometheus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-one
+  labels:
+    app: external-prometheus
+  namespace: cattle-monitoring-system
+spec:
+  type: ExternalName
+  externalName: 18.156.119.236
+  clusterIP: ""
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name:  prometheus-nodeport
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: cluster-one
+  labels:
+    app: external-prometheus
+  namespace: cattle-monitoring-system
+subsets:
+  - addresses:
+      - ip: 18.156.119.236
+    ports:
+      - port: 3000
+        name: prometheus-nodeport
+        protocol: TCP

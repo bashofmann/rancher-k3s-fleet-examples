@@ -1,0 +1,28 @@
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: do-demo-cluster
+  namespace: fleet-default
+spec:
+  cloudCredentialSecretName: cattle-global-data:cc-2s57m
+  kubernetesVersion: 1.21.8+rke2r2
+  rkeConfig:
+    machinePools:
+    - controlPlaneRole: true
+      etcdRole: true
+      workerRole: true
+      quantity: 3
+      name: do-demo-cluster-nodes
+      machineConfigRef:
+        kind: DigitaloceanConfig
+        name: do-demo-cluster-nodes
+      paused: false
+    controlPlaneConfig:
+      cni: calico
+    upgradeStrategy:
+      controlPlaneDrainOptions:
+        enabled: false
+      workerDrainOptions:
+        enabled: false
+      workerConcurrency: "10%"
+      controlPlaneConcurrency: "10%"
