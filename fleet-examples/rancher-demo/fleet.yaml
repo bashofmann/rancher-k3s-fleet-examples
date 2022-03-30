@@ -12,9 +12,7 @@ helm:
 
 targetCustomization:
   - name: test
-    clusterSelector:
-      matchLabels:
-        abc: def
+    clusterGroup: test
     helm:
       version: 2.6.0
       values:
