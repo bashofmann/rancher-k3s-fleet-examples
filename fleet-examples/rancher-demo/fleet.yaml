@@ -1,0 +1,13 @@
+defaultNamespace: rancher-demo
+
+helm:
+  chart: rancher-demo
+  repo: https://bashofmann.github.io/demo-charts
+  version: 2.5.1
+  releaseName: rancher-demo
+
+targetCustomization:
+  - name: test
+    clusterGroup: test
+    helm:
+      version: 2.6.0
