@@ -8,7 +8,7 @@ helm:
   values:
     app:
       localization:
-        title: "Rancher Demo App -nc"
+        title: "Rancher Demo App -nc1"
 
 targetCustomization:
   - name: test
