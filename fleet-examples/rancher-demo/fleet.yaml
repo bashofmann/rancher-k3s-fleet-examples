@@ -8,6 +8,8 @@ helm:
 
 targetCustomization:
   - name: test
-    clusterGroup: test
+    clusterSelector:
+      matchLabels:
+        abc: def
     helm:
       version: 2.6.0
