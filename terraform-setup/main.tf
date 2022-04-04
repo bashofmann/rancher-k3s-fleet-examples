@@ -22,9 +22,9 @@ resource "aws_security_group" "sg_allowall" {
   }
 }
 
-resource "aws_instance" "ubuntu_vms" {
+resource "aws_instance" "x86_vms" {
   count         = 5
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.sles_x86.id
   instance_type = "t3a.xlarge"
 
   key_name        = aws_key_pair.ssh_key_pair.key_name
@@ -35,17 +35,21 @@ resource "aws_instance" "ubuntu_vms" {
   }
 
   tags = {
-    Name = "${var.prefix}-rancher-k3s-fleet-ubuntu"
+    Name = "${var.prefix}-rancher-k3s-fleet-x86"
   }
 }
 
 resource "aws_instance" "arm_vms" {
   count         = 1
-  ami           = data.aws_ami.arm.id
+  ami           = data.aws_ami.sles_arm.id
   instance_type = "a1.medium"
 
   key_name        = aws_key_pair.ssh_key_pair.key_name
   security_groups = [aws_security_group.sg_allowall.name]
+
+  root_block_device {
+    volume_size = 80
+  }
 
   tags = {
     Name = "${var.prefix}-rancher-k3s-fleet-arm"

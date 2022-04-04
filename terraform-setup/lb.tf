@@ -1,6 +1,6 @@
 resource "aws_elb" "rancher-server-lb" {
   name               = "${var.prefix}-rancher-server-lb"
-  availability_zones = aws_instance.ubuntu_vms[*].availability_zone
+  availability_zones = aws_instance.x86_vms[*].availability_zone
 
   listener {
     instance_port     = 80
@@ -25,9 +25,9 @@ resource "aws_elb" "rancher-server-lb" {
   }
 
   instances                   = [
-    aws_instance.ubuntu_vms[0].id,
-    aws_instance.ubuntu_vms[1].id,
-    aws_instance.ubuntu_vms[2].id
+    aws_instance.x86_vms[0].id,
+    aws_instance.x86_vms[1].id,
+    aws_instance.x86_vms[2].id
   ]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
