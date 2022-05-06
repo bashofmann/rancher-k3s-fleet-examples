@@ -2,6 +2,7 @@ defaultNamespace: k10
 
 helm:
   chart: k10
+  repo: https://git.rancher.io/partner-charts
   releaseName: k10
   values: {}
 
