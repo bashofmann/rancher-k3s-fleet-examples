@@ -2,9 +2,9 @@ defaultNamespace: k10
 
 helm:
   chart: k10
-  repo: https://git.rancher.io/partner-charts
+  repo: https://partner-charts.rancher.io/
   releaseName: k10
-  values: {}
+  version: 4.5.1400
 
 #dependsOn:
 #  - name: kasten-k10-demo-kasten-k10-demo-longhorn
