@@ -1,0 +1,13 @@
+apiVersion: ui.cattle.io/v1
+kind: NavLink
+metadata:
+  name: kasten-k10
+spec:
+  label: Kasten K10
+  target: _blank
+  toService:
+    name: gateway
+    namespace: k10
+    path: k10/
+    port: "8000"
+    scheme: http

@@ -1,0 +1,9 @@
+defaultNamespace: k10
+
+helm:
+  chart: k10
+  releaseName: k10
+  values: {}
+
+dependsOn:
+  - name: kasten-k10-demo-kasten-k10-demo-longhorn
