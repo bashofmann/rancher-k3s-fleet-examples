@@ -6,5 +6,5 @@ helm:
   releaseName: k10
   values: {}
 
-dependsOn:
-  - name: kasten-k10-demo-kasten-k10-demo-longhorn
+#dependsOn:
+#  - name: kasten-k10-demo-kasten-k10-demo-longhorn
