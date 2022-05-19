@@ -1,0 +1,12 @@
+defaultNamespace: default
+
+helm:
+  chart: tetris
+  repo: https://rancher.github.io/rodeo
+  version: 0.1.9
+  releaseName: tetris
+  values:
+    service:
+      type: NodePort
+    ingress:
+      enabled: false
