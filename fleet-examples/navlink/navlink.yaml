@@ -1,0 +1,7 @@
+apiVersion: ui.cattle.io/v1
+kind: NavLink
+metadata:
+  name: testtwo
+spec:
+  target: _blank
+  toURL: https://google.com
